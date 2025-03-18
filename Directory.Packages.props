@@ -25,5 +25,6 @@
     <PackageVersion Include="Nerdbank.Streams" Version="2.11.79" />
     <PackageVersion Include="NUnit" Version="3.14.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageVersion Include="Thoth.Json.System.Text.Json" Version="0.2.1" />
   </ItemGroup>
 </Project>
