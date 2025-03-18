@@ -23,6 +23,7 @@
     <PackageReference Include="FSharp.SystemTextJson" />
     <PackageReference Include="StreamJsonRpc" />
     <PackageReference Include="Suave" />
+    <PackageReference Include="System.Text.Json" />
     <PackageReference Include="Thoth.Json.Core" />
     <PackageReference Include="protobuf-net" />
     <PackageReference Include="Thoth.Json.System.Text.Json" />
