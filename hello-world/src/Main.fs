@@ -20,6 +20,7 @@ let html = id
 
 // Create the HTML content
 let app = document.querySelector("#app")
+
 app.innerHTML <- 
   html $"""
     <div>
