@@ -25,4 +25,4 @@ dist-ssr
 
 # regen each time
 bun.lock
-package.lock
+package.lock.json
