@@ -8,6 +8,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment:
+      name: node-packages
     steps:
       - uses: actions/checkout@v3
       
@@ -18,7 +20,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org/'
           
       - name: Install dependencies
-        run: npm install
+        run: npm i
       
       - name: Publish package to npm
         run: npm publish
