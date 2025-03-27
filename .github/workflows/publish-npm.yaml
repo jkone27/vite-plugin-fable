@@ -11,18 +11,14 @@ jobs:
     environment:
       name: node-packages
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup Node.js (Latest LTS)
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+    # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: '20.x'
           registry-url: 'https://registry.npmjs.org/'
           
-      - name: Install dependencies
-        run: npm i
-      
-      - name: Publish package to npm
-        run: npm publish
+      - run: npm install
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
