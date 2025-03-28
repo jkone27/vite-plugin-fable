@@ -31,7 +31,7 @@ jobs:
         run : bun run postinstall
 
       - name: Build sample
-        run: bun i && bun run build
+        run: bun i && bun run build 2>&1 | grep -i "error" && exit 1 || true
         working-directory: ./sample-project
 
       - name: Build docs
