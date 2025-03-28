@@ -57,7 +57,7 @@ const result = await state.endpoint.send("fable/project-changed", {
 
 ## Architecture Benefits
 
-- **Hot Reloading**: The `fable/compile` method enables incremental compilation, allowing for fast updates during development.
+- **Incremental Compilation**: The `fable/compile` method enables incremental compilation, allowing for fast updates during development.
 - **Efficiency**: Communication over standard input/output streams ensures low overhead.
 - **Extensibility**: The JSON-RPC architecture allows for easy addition of new methods and features.
 
