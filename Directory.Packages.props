@@ -13,7 +13,7 @@
     <PackageVersion Include="Thoth.Json.Core" Version="0.7.0" />
     <PackageVersion Include="protobuf-net" Version="3.2.30" />
     <!-- lock transitive dependencies -->
-    <PackageVersion Include="Fable.AST" Version="4.6.0-beta.1" />
+    <PackageVersion Include="Fable.AST" Version="5.0.0-beta.1" />
     <PackageVersion Include="System.Collections" Version="4.3.0" />
     <PackageVersion Include="System.Diagnostics.Debug" Version="4.3.0" />
     <PackageVersion Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
