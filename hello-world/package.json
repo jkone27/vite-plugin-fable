@@ -4,16 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "archive": "cd .. && bun pm pack && cd hello-world && mkdir -p lib && mv ../*.tgz ./lib/latest.tgz",
+    "install-arch": "bun add ./lib/latest.tgz -d --trust",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.26.3",
     "jsdom": "^26.0.0",
     "vite": "^6.2.0",
-    "vite-plugin-fable": "file:..",
+    "vite-plugin-fable": "./lib/latest.tgz",
     "vitest": "^3.0.9"
   },
   "trustedDependencies": [

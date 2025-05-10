@@ -12,6 +12,7 @@ export default defineConfig({
       fsproj: "./src/App.fsproj"
     }),
   ],
+  assetsInclude: ['**/*.fs'],
   root: "./src",
   build: {
     outDir: "../dist",
