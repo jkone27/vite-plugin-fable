@@ -21,7 +21,6 @@
     <PackageReference Include="Fable.React" />
     <PackageReference Include="FSharp.Core" />
     <PackageReference Include="FSharp.SystemTextJson" />
-    <PackageReference Include="Ionide.KeepAChangeLog.Tasks" />
     <PackageReference Include="StreamJsonRpc" />
     <PackageReference Include="Suave" />
     <PackageReference Include="System.Text.Json" />

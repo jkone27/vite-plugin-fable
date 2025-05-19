@@ -7,7 +7,6 @@
     <PackageVersion Include="Fable.React" Version="7.4.3" />
     <PackageVersion Include="FSharp.Core" Version="8.0.200" />
     <PackageVersion Include="FSharp.SystemTextJson" Version="1.3.13" />
-    <PackageVersion Include="Ionide.KeepAChangeLog.Tasks" Version="0.1.8" />
     <PackageVersion Include="StreamJsonRpc" Version="2.20.17" />
     <PackageVersion Include="Fable.Compiler" Version="5.0.0-alpha.13" />
     <PackageVersion Include="Suave" Version="2.6.2" />
