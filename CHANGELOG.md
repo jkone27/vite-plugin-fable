@@ -12,4 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Vite plugin integration for Fable projects.
-- Compatibility with Vite 6.x and Fable 5.x.
+- Fable.Compiler updated to 5.0.0-alpha.13
+- Added caret range to fable-library-js
+- Updated fable-library-js to 2.0.0-beta.3
+
