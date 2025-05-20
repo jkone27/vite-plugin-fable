@@ -1,5 +1,7 @@
 import { $ } from "bun";
 
+// https://www.npmjs.com/package/keep-a-changelog#cli
+
 const version = await $`bunx changelog --latest-release`.text();
 
 if (version === "") {
