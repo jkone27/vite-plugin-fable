@@ -1,5 +1,6 @@
 import { $ } from "bun";
 
+// Updates the package.json version according to latest release from CHANGELOG.md
 // https://www.npmjs.com/package/keep-a-changelog#cli
 
 const version = await $`bunx changelog --latest-release`.text();
@@ -10,5 +11,4 @@ if (version === packageVersion) {
   process.exit(0);
 }
 
-// Update package.json version
 await $`npm version ${version.trim()}`;
