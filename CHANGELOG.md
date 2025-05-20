@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) from version [0.0.37] moving forward.
 
 ## [0.0.37] - 2025-05-10
-### Added
+### Changed
 - Fable.Compiler updated to 5.0.0-alpha.13 ([#38](https://github.com/fable-compiler/vite-plugin-fable/pull/38))
 - Added caret range to fable-library-js ([#38](https://github.com/fable-compiler/vite-plugin-fable/pull/38))
 - Updated fable-library-js to 2.0.0-beta.3 ([#38](https://github.com/fable-compiler/vite-plugin-fable/pull/38))
