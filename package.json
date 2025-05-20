@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "bunx --bun prettier ./package.json ./index.js ./types.d.ts ./sample-project/vite.config.js ./docs/*.md ./docs/content/*.css ./docs/scripts/*.js ./docs/*.html ./.devcontainer/devcontainer.json --write && dotnet fantomas .",
     "postinstall": "dotnet publish Fable.Daemon/Fable.Daemon.fsproj --nologo -c Release --ucr -p:PublishReadyToRun=true -o ./bin",
-    "lint": "bunx tsc"
+    "lint": "bunx tsc",
+    "prepublishOnly": "bunx changelog-updater.js"
   },
   "files": [
     "index.js",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@types/node": "^22.10.7",
     "copy-to-clipboard": "^3.3.3",
+    "keep-a-changelog": "^2.6.2",
     "lit": "^3.2.1",
     "prettier": "3.4.2",
     "typescript": "5.7.3"
