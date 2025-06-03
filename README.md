@@ -20,6 +20,10 @@ More thoughts on this can be read from the [documentation](https://fable.io/vite
 A first package was pushed to npm. This was merely to reserve the package name.  
 You can read the code, that's is it for now.
 
+### Recent Notes
+
+Added support for dotnet latest runtime in [v0.1.1](./CHANGELOG.md#011---2025-06-03), the suggested action is to upgrade to latest. In previous versions the plugin to silently fails if dotnet 8 runtime is not installed, see changelog entry.
+
 ## Video
 
 I talked a little bit about this project during this stream:
