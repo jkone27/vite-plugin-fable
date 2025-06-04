@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),  
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) from version [0.1.0] moving forward.
 
+## [0.1.2] - 2025-06-03
+### Changed
+- Support for self contained bin artifacts so there is no need for post install for user. TODO
+
 ## [0.1.1] - 2025-06-03
 ### Fixed
 - Support `major` roll forward dotnet versions of runtime for Fable.Daemon, pr ([#46](https://github.com/fable-compiler/vite-plugin-fable/pull/46)), targets issue ([#44](https://github.com/fable-compiler/vite-plugin-fable/issues/44))

@@ -15,7 +15,7 @@ withResolvers.shim();
 
 const fsharpFileRegex = /\.(fs|fsx)$/;
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
-const fableDaemon = path.join(currentDir, "bin/Fable.Daemon.dll");
+const fableDaemon = path.join(currentDir, "bin/Fable.Daemon");
 
 if (process.env.VITE_PLUGIN_FABLE_DEBUG) {
   console.log(
@@ -151,6 +151,7 @@ export default function fablePlugin(userConfig) {
    */
   async function getProjectFile(fableLibrary) {
     /** @type {import("./types.js").FSharpDiscriminatedUnion} */
+
     const result = await state.endpoint.send("fable/project-changed", {
       configuration: state.configuration,
       project: state.fsproj,
@@ -404,7 +405,7 @@ export default function fablePlugin(userConfig) {
     buildStart: async function (options) {
       try {
         logInfo("buildStart", "Starting daemon");
-        state.dotnetProcess = spawn("dotnet", [fableDaemon, "--stdio"], {
+        state.dotnetProcess = spawn(fableDaemon, ["--stdio"], {
           shell: true,
           stdio: "pipe",
         });

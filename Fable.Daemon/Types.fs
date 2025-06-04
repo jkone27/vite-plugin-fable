@@ -6,6 +6,7 @@ type FullPath = string
 type Hash = string
 type JavaScript = string
 
+[<CLIMutable>]
 type ProjectChangedPayload =
     {
         /// Release or Debug.
@@ -52,4 +53,5 @@ type FileChangedResult =
     | Success of compiledFSharpFiles : Map<FullPath, JavaScript> * diagnostics : Diagnostic array
     | Error of string
 
+[<CLIMutable>]
 type CompileFilesPayload = { FileNames : FullPath array }

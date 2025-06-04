@@ -1,9 +1,8 @@
-#I "./bin"
+#I "./artifacts/bin/Fable.Daemon/debug"
 #r "Fable.AST"
 #r "Fable.Compiler"
 #r "Fable.Daemon"
-#r "./bin/FSharp.Compiler.Service.dll"
-#r "./bin/Microsoft.Extensions.Logging.Abstractions.dll"
+#r "./artifacts/bin/Fable.Daemon/debug/Microsoft.Extensions.Logging.Abstractions.dll"
 
 open System.IO
 open Microsoft.Extensions.Logging

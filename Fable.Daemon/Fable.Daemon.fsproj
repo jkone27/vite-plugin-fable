@@ -2,8 +2,21 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <RollForward>LatestMajor</RollForward>
+    <TargetFramework>net9.0</TargetFramework>
+    <!-- <RollForward>LatestMajor</RollForward> -->
+    <PublishTrimmed>true</PublishTrimmed>
+    <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- <PublishAot>true</PublishAot> -->
+    <!-- 
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <EnableCompressionInSingleFile>false</EnableCompressionInSingleFile> -->
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifiers>osx-x64;linux-x64;win-x64</RuntimeIdentifiers>
+    <InvariantGlobalization>true</InvariantGlobalization> 
+    <!-- <IsAotCompatible>true</IsAotCompatible> -->
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +24,9 @@
     <Compile Include="MSBuild.fs" />
     <Compile Include="Caching.fs" />
     <Compile Include="CoolCatCracking.fs" />
+    <Compile Include="Domain.fs" />
+    <Compile Include="Compiler.fs" />
+    <Compile Include="RpcEndpoints.fs" />
     <Content Include="debug\index.html" />
     <Content Include="debug\favicon.ico" />
     <Compile Include="Debug.fsi" />
