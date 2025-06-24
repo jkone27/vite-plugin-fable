@@ -17,10 +17,9 @@ const fsharpFileRegex = /\.(fs|fsx)$/;
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
 // ⚠️ locally seems to work only with .dll extension (note for PR, to be removed)
-const fableDaemon = path.join(currentDir, "bin/Fable.Daemon");
+const fableDaemon = path.join(currentDir, "bin/Fable.Daemon.dll");
 
 if (process.env.VITE_PLUGIN_FABLE_DEBUG) {
-  console.log(`fable daemon path at: ${fableDaemon}`);
   console.log(
     `Running daemon in debug mode, visit http://localhost:9014 to view logs`,
   );
