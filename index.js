@@ -16,7 +16,6 @@ withResolvers.shim();
 const fsharpFileRegex = /\.(fs|fsx)$/;
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
-// ⚠️ locally seems to work only with .dll extension (note for PR, to be removed)
 const fableDaemon = path.join(currentDir, "bin/Fable.Daemon.dll");
 
 if (process.env.VITE_PLUGIN_FABLE_DEBUG) {
