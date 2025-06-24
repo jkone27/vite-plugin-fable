@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.2] - 2025-06-24
 ### Changed
-- Upgrade to Vite 7.0.0 as peer dependency and adjust transform hook to use latest filter property, pr ([#49](https://github.com/fable-compiler/vite-plugin-fable/pull/49)), targets issue ([#44]())
+- BREAKING: Upgrade to Vite 7.0.0 as peer dependency and adjust transform hook to use latest filter property, pr ([#49](https://github.com/fable-compiler/vite-plugin-fable/pull/49)), targets issue ([#44]())
 
 ## [0.1.1] - 2025-06-03
 ### Fixed
