@@ -33,21 +33,4 @@ I'm of the opinion (_brace yourselves, hot take incoming_) that integrating Fabl
 I absolutely recognize and respect the legacy of Fable. It's a veteran in the scene, predating Vite, so I get the historical reasons for its current approach.  
 But that doesn't mean I can't cheer for evolution and a bit of change, right?
 
-## Community Templates *
-
-### Feliz
-
-Some [Feliz](https://fable-hub.github.io/Feliz/) templates are already using this plugin, ✅
-
-* [feliz-vite (react)](https://github.com/jkone27/feliz-vite) 🪐: a template that combines Feliz react DSL and this awesome plugin as well as vitest and react testing library fable bindings, for extra awesme experience.
-
-* [vite-feliz-solid](https://github.com/jkone27/feliz-vite-solid) 🌐: a template that combines Feliz JSX react dsl with solidjs, vitest, jsdom and vite.
-
-### Express.js (WIP) ⚠️
-* [vite-fable-server](https://github.com/jkone27/vite-fable-server) 🍇: a simple example combining the plugin with express.js (and glutinum bindings) as well as vite plugin server, for a simple backend application. ⚠️ tests not working atm. 
-
-**NOTE**: Want to add to this list? please open an issue on our github repo, we are glad to add more examples for users.
-
-(*) please note we do **not support such templates**, they are just a way to showcase this plugin functionality or to help document the plugin usage.
-
 [Next]({{fsdocs-next-page-link}})
