@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.2] - 2025-06-24
 ### Changed
-- BREAKING: Upgrade to Vite 7.0.0 as peer dependency and adjust transform hook to use latest filter property, pr ([#49](https://github.com/fable-compiler/vite-plugin-fable/pull/49)), targets issue ([#44]())
+- Upgrade to Vite 7.0.0 as peer dependency and adjust transform hook to use latest filter property, pr ([#49](https://github.com/fable-compiler/vite-plugin-fable/pull/49)), targets issue ([#39]([#39](https://github.com/fable-compiler/vite-plugin-fable/issues/39))
 
 ## [0.1.1] - 2025-06-03
 ### Fixed
-- Support `major` roll forward dotnet versions of runtime for Fable.Daemon, pr ([#46](https://github.com/fable-compiler/vite-plugin-fable/pull/46)), targets issue ([#39](https://github.com/fable-compiler/vite-plugin-fable/issues/39))
+- Support `major` roll forward dotnet versions of runtime for Fable.Daemon, pr ([#46](https://github.com/fable-compiler/vite-plugin-fable/pull/46)), targets issue ([#44](https://github.com/fable-compiler/vite-plugin-fable/issues/44))
 
 ## [0.1.0] - 2025-05-22
 ### Changed
