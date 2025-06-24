@@ -6,6 +6,11 @@ category: docs
 
 # Getting started
 
+## .NET SDK (required)
+
+Maybe it can seem daunting if you are a frontend developer with no prior .NET experience (trust us is not 😉), but to run [F#](https://dotnet.microsoft.com/en-us/languages/fsharp) and run [Fable](https://fable.io/) you need to have `dotnet-sdk` installed in your local machine.
+For mac-os users with homebrew is as simple as `brew install dotnet-sdk`. We invite you to install the sdk according to your preferences, and following the proper instructions for your current architecture on the [microsoft website for .NET sdk](https://dotnet.microsoft.com/en-us/download) if is not a mac-os.
+
 ## Create a new Vite project
 
 First you need a new Vite project:
