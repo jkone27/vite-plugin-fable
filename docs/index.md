@@ -33,7 +33,7 @@ I'm of the opinion (_brace yourselves, hot take incoming_) that integrating Fabl
 I absolutely recognize and respect the legacy of Fable. It's a veteran in the scene, predating Vite, so I get the historical reasons for its current approach.  
 But that doesn't mean I can't cheer for evolution and a bit of change, right?
 
-## Community Templates 🚧 
+## Community Templates *
 
 ### Feliz
 
@@ -48,6 +48,6 @@ Some [Feliz](https://fable-hub.github.io/Feliz/) templates are already using thi
 
 **NOTE**: Want to add to this list? please open an issue on our github repo, we are glad to add more examples for users.
 
-(*) please note we do **not support such templates**. At the time of wrigint, they are just a way to showcase this plugin functionality or to help document the plugin usage.
+(*) please note we do **not support such templates**, they are just a way to showcase this plugin functionality or to help document the plugin usage.
 
 [Next]({{fsdocs-next-page-link}})
