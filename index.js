@@ -414,6 +414,46 @@ export default function fablePlugin(userConfig) {
           state.dotnetProcess.stdout,
         );
 
+        // Attach protocol-level error handler
+        if (typeof state.endpoint.on === "function") {
+          state.endpoint.on("error", async (err) => {
+            logWarn(
+              "protocol",
+              `[fable] Protocol-level error from JSONRPCEndpoint: ${
+                err && err.message ? err.message : err
+              }`
+            );
+            // logWarn("protocol", `[fable] Protocol-level error from JSONRPCEndpoint: ${err && err.message ? err.message : err}`);
+            // if (err && err.message && err.message.includes("id mismatch")) {
+            //   try {
+            //     logWarn("protocol", "Detected id mismatch error, attempting to restart the daemon and reload project state.");
+            //     // Kill the old daemon process if running
+            //     if (state.dotnetProcess) {
+            //       state.dotnetProcess.kill();
+            //     }
+            //     // Start a new daemon process
+            //     state.dotnetProcess = spawn("dotnet", [fableDaemon, "--stdio"], {
+            //       shell: true,
+            //       stdio: "pipe",
+            //     });
+            //     state.endpoint = new JSONRPCEndpoint(
+            //       state.dotnetProcess.stdin,
+            //       state.dotnetProcess.stdout,
+            //     );
+            //     // Clear state
+            //     state.sourceFiles.clear();
+            //     state.compilableFiles.clear();
+            //     state.dependentFiles.clear();
+            //     // Recompile project
+            //     await compileProject(this.addWatchFile ? this.addWatchFile.bind(this) : () => {});
+            //     logInfo("protocol", "Fable daemon restarted and project reloaded after protocol error.");
+            //   } catch (recoveryErr) {
+            //     logCritical("protocol", `Failed to recover from protocol error: ${recoveryErr}`);
+            //   }
+            // }
+          });
+        }
+
         if (state.isBuild) {
           await projectChanged(
             this.addWatchFile.bind(this),
