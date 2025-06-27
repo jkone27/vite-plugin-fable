@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:debug": "VITE_PLUGIN_FABLE_DEBUG=1 VITE_DEBUG=* vite",
-    "build": "build",
-    "preview": "preview"
+    "dev": "bunx --bun vite",
+    "dev:debug": "VITE_PLUGIN_FABLE_DEBUG=1 bunx --bun vite",
+    "build": "bunx --bun build",
+    "preview": "bunx --bun preview"
   },
   "dependencies": {
     "@fable-org/fable-library-js": "2.0.0-beta.3",
