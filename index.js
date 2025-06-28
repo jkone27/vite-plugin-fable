@@ -19,7 +19,9 @@ const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
 const fableDaemon = path.join(currentDir, "bin/Fable.Daemon.dll");
 
-if (process.env.VITE_PLUGIN_FABLE_DEBUG) {
+const isVitePluginFableDebug = process.env.VITE_PLUGIN_FABLE_DEBUG;
+
+if (isVitePluginFableDebug) {
   console.log(
     `Running daemon in debug mode, visit http://localhost:9014 to view logs`,
   );
@@ -75,6 +77,17 @@ export default function fablePlugin(userConfig) {
     state.logger.info(colors.dim(`[fable]: ${prefix}: ${message}`), {
       timestamp: true,
     });
+  }
+
+  /**
+   * @param {String} prefix
+   * @param {String} message
+   * @description Logs debug messages if the Vite plugin debug mode is enabled.
+   */
+  function logIfDebugMode(prefix, message) {
+    if (isVitePluginFableDebug) {
+      logDebug(prefix, message);
+    }
   }
 
   /**
@@ -581,7 +594,7 @@ export default function fablePlugin(userConfig) {
         const newHash = await getFileHash(file);
         const oldHash = fileContentHashes.get(file);
         if (newHash && newHash === oldHash) {
-          logDebug("handleHotUpdate", `No content change for ${file}, skipping fsharpFileChanged`);
+          logIfDebugMode("handleHotUpdate", `No content change for ${file}, skipping fsharpFileChanged`);
           return modules.filter((m) => m.importers.size !== 0);
         }
         fileContentHashes.set(file, newHash);
