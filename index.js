@@ -10,6 +10,7 @@ import colors from "picocolors";
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers
 import withResolvers from "promise.withresolvers";
 import { codeFrameColumns } from "@babel/code-frame";
+import crypto from "node:crypto";
 
 withResolvers.shim();
 
@@ -18,7 +19,9 @@ const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
 const fableDaemon = path.join(currentDir, "bin/Fable.Daemon.dll");
 
-if (process.env.VITE_PLUGIN_FABLE_DEBUG) {
+const isVitePluginFableDebug = process.env.VITE_PLUGIN_FABLE_DEBUG;
+
+if (isVitePluginFableDebug) {
   console.log(
     `Running daemon in debug mode, visit http://localhost:9014 to view logs`,
   );
@@ -57,6 +60,10 @@ export default function fablePlugin(userConfig) {
     pendingChanges: null,
     hotPromiseWithResolvers: null,
     isBuild: false,
+    lastTransformId: null,
+    pendingTransformQueue: [], // Track files being transformed
+    isCompiling: false, // Serialize compilation
+    compileQueue: [], // Queue for debounced compilation
   };
 
   /** @type {Subject<import("./types.js").HookEvent>} **/
@@ -70,6 +77,17 @@ export default function fablePlugin(userConfig) {
     state.logger.info(colors.dim(`[fable]: ${prefix}: ${message}`), {
       timestamp: true,
     });
+  }
+
+  /**
+   * @param {String} prefix
+   * @param {String} message
+   * @description Logs debug messages if the Vite plugin debug mode is enabled.
+   */
+  function logIfDebugMode(prefix, message) {
+    if (isVitePluginFableDebug) {
+      logDebug(prefix, message);
+    }
   }
 
   /**
@@ -375,6 +393,43 @@ export default function fablePlugin(userConfig) {
     };
   }
 
+  const compilationQueue = [];
+  let isCompiling = false;
+
+  async function processCompileQueue() {
+    if (isCompiling || compilationQueue.length === 0) return;
+    isCompiling = true;
+    const { fn, args, resolve, reject } = compilationQueue.shift();
+    try {
+      const result = await fn(...args);
+      resolve(result);
+    } catch (e) {
+      reject(e);
+    } finally {
+      isCompiling = false;
+      processCompileQueue();
+    }
+  }
+
+  function enqueueCompilation(fn, ...args) {
+    return new Promise((resolve, reject) => {
+      compilationQueue.push({ fn, args, resolve, reject });
+      processCompileQueue();
+    });
+  }
+
+  // Cache for last known file content hash
+  const fileContentHashes = new Map();
+
+  async function getFileHash(filePath) {
+    try {
+      const content = await fs.readFile(filePath, 'utf-8');
+      return crypto.createHash('sha256').update(content).digest('hex');
+    } catch (e) {
+      return null;
+    }
+  }
+
   return {
     name: "vite-plugin-fable",
     enforce: "pre",
@@ -422,14 +477,23 @@ export default function fablePlugin(userConfig) {
 
         // Attach protocol-level error handler
         state.endpoint.on("error", async (err) => {
+          // TODO: remove, this error was happening on concurrent file compilation race conditions
           if (err && /id mismatch/.test(err)) {
-            // this error is recoverable, the plugin will just reload all files.
             logWarn(
               "protocol",
               `error from JSONRPCEndpoint: ${
                 err && err.message ? err.message : err
               }`
             );
+
+            // TODO: remove, with queue serialization this should not happen anymore >>>
+            // Attempt to rerun the latest transform (last file requested for transform)
+            // if (state.lastTransformId) {
+            //   logInfo("protocol", `Retrying transform for last file: ${state.lastTransformId}`);
+            //   state.compilableFiles.delete(state.lastTransformId);
+            //   // Use the queue to serialize retry
+            //   await enqueueCompilation(fsharpFileChanged, [state.lastTransformId]);
+            // }
           }
           else {
             logError("protocol", 
@@ -462,14 +526,11 @@ export default function fablePlugin(userConfig) {
               let diagnostics = [];
 
               if (pendingChanges.projectChanged) {
-                await projectChanged(
-                  this.addWatchFile.bind(this),
-                  pendingChanges.projectFiles,
-                );
+                await enqueueCompilation(projectChanged, this.addWatchFile.bind(this), pendingChanges.projectFiles);
               } else {
                 const files = Array.from(pendingChanges.fsharpFiles);
                 logDebug("subscribe", files.join("\n"));
-                diagnostics = await fsharpFileChanged(files);
+                diagnostics = await enqueueCompilation(fsharpFileChanged, files);
               }
 
               if (state.hotPromiseWithResolvers) {
@@ -493,11 +554,14 @@ export default function fablePlugin(userConfig) {
     transform: {
       filter: { id: fsharpFileRegex },
       async handler(src, id) {
+        state.lastTransformId = id;
+        // Add to pending transform queue
+        if (!state.pendingTransformQueue.includes(id)) {
+          state.pendingTransformQueue.push(id);
+        }
         logDebug("transform", id);
         if (state.compilableFiles.has(id)) {
           let code = state.compilableFiles.get(id);
-          // If Fable outputted JSX, we still need to transform this.
-          // @vitejs/plugin-react does not do this.
           if (state.config.jsx) {
             const esbuildResult = await transform(code, {
               loader: "jsx",
@@ -505,12 +569,16 @@ export default function fablePlugin(userConfig) {
             });
             code = esbuildResult.code;
           }
+          // Remove from pending queue after transform
+          state.pendingTransformQueue = state.pendingTransformQueue.filter(f => f !== id);
           return {
             code: code,
             map: null,
           };
         } else {
           logWarn("transform", `${id} is not part of compilableFiles.`);
+          // Remove from pending queue if not found
+          state.pendingTransformQueue = state.pendingTransformQueue.filter(f => f !== id);
         }
       }
     },
@@ -522,19 +590,23 @@ export default function fablePlugin(userConfig) {
     handleHotUpdate: async function ({ file, server, modules }) {
       if (state.compilableFiles.has(file)) {
         logDebug("handleHotUpdate", `enter for ${file}`);
+        // Check if file content actually changed
+        const newHash = await getFileHash(file);
+        const oldHash = fileContentHashes.get(file);
+        if (newHash && newHash === oldHash) {
+          logIfDebugMode("handleHotUpdate", `No content change for ${file}, skipping fsharpFileChanged`);
+          return modules.filter((m) => m.importers.size !== 0);
+        }
+        fileContentHashes.set(file, newHash);
         pendingChangesSubject.next({
           type: "FSharpFileChanged",
           file: file,
         });
-
-        // handleHotUpdate could be called concurrently because multiple files changed.
         if (!state.hotPromiseWithResolvers) {
           state.hotPromiseWithResolvers = Promise.withResolvers();
         }
-
-        // The idea is to wait for a shared promise to resolve.
-        // This will resolve in the subscription of state.changedFSharpFiles
-        const diagnostics = await state.hotPromiseWithResolvers.promise;
+        // Use debounced compilation
+        const diagnostics = await enqueueCompilation(fsharpFileChanged, [file]);
         logDebug("handleHotUpdate", `leave for ${file}`);
 
         const errorDiagnostic = diagnostics.find(

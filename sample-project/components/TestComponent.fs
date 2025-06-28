@@ -20,7 +20,7 @@ let El (props: {| name: string |}) =
                 style.animationTimingFunction.linear
             ]
             prop.children [
-                Html.h1 $"My name is: {props.name}!"
+                Html.h1 $"My Name is: {props.name}!"
             ]
         ]
         Html.style spinCss 
