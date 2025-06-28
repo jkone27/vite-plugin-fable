@@ -431,7 +431,8 @@ export default function fablePlugin(userConfig) {
             );
           }
           else {
-            logError("unknown", `error: ${err}, ${err.code}, ${err.context ?? "no context"}`);
+            logError("protocol", 
+              `error: ${err}, ${err.code}, ${err.context ?? "no context"}`);
           }
         });
         
