@@ -51,6 +51,8 @@ export interface PluginState {
   pendingChanges: Subscription | null;
   hotPromiseWithResolvers: PromiseWithResolvers<Array<Diagnostic>>;
   isBuild: boolean;
+  lastTransformId: string | null; // Optional: The ID of the last transform applied, for error recovery
+  pendingTransformQueue: string[]; // Queue for tracking files pending transformation
 }
 
 // Represents an event where an F# file has changed.
