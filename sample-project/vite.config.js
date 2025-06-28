@@ -10,7 +10,7 @@ export default defineConfig({
   },
   plugins: [
     Inspect(),
-    fable({ jsx: "automatic" }),
+    fable(),
     react({ include: /\.fs$/, jsxRuntime: "classic" }),
   ],
 });
