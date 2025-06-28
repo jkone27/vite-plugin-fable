@@ -423,6 +423,7 @@ export default function fablePlugin(userConfig) {
         // Attach protocol-level error handler
         state.endpoint.on("error", async (err) => {
           if (err && /id mismatch/.test(err)) {
+            // this error is recoverable, the plugin will just reload all files.
             logWarn(
               "protocol",
               `error from JSONRPCEndpoint: ${
