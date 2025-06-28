@@ -464,6 +464,7 @@ export default function fablePlugin(userConfig) {
 
         // Attach protocol-level error handler
         state.endpoint.on("error", async (err) => {
+          // TODO: remove, this error was happening on concurrent file compilation race conditions
           if (err && /id mismatch/.test(err)) {
             logWarn(
               "protocol",
@@ -472,13 +473,14 @@ export default function fablePlugin(userConfig) {
               }`
             );
 
+            // TODO: remove, with queue serialization this should not happen anymore >>>
             // Attempt to rerun the latest transform (last file requested for transform)
-            if (state.lastTransformId) {
-              logInfo("protocol", `Retrying transform for last file: ${state.lastTransformId}`);
-              state.compilableFiles.delete(state.lastTransformId);
-              // Use the queue to serialize retry
-              await enqueueCompilation(fsharpFileChanged, [state.lastTransformId]);
-            }
+            // if (state.lastTransformId) {
+            //   logInfo("protocol", `Retrying transform for last file: ${state.lastTransformId}`);
+            //   state.compilableFiles.delete(state.lastTransformId);
+            //   // Use the queue to serialize retry
+            //   await enqueueCompilation(fsharpFileChanged, [state.lastTransformId]);
+            // }
           }
           else {
             logError("protocol", 

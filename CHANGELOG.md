@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.1] - 2025-06-28
 ### Fixed
-- Bug fix targeting issue ([#53](https://github.com/fable-compiler/vite-plugin-fable/issues/53)) as log warn and no crash, for protocol error in json rpc serialization when there is id count mismatch
-- removed Nojaf.React bindings nuget package and using Feliz instead for sample-project, as it is what is most used in community projects and suggested by official fable docs for React.
+- Bug fix targeting issue ([#53](https://github.com/fable-compiler/vite-plugin-fable/issues/53))
+- adds transform queue avoiding overlapping transform race conditions.
+- adds check on file hash with node crytpto as vite hmr triggers for each file change to avoid recompilation when no changes happened to files
+- in sample-project changed: Nojaf.Fable.React (experimental) --> Feliz (fable community)
 - pr ([#55](https://github.com/fable-compiler/vite-plugin-fable/pull/55))
 
 ## [0.2.0] - 2025-06-24
